@@ -20,29 +20,41 @@
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Project title</label>
-                <input value="{{old('title')}}" type="text" class="form-control" id="title" name="title">
+                <input value="{{ old('title') }}" type="text" class="form-control" id="title" name="title">
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Project description</label>
-                <textarea class="form-control" id="description" name="description" rows="3">{{old('description')}}</textarea>
+                <textarea class="form-control" id="description" name="description" rows="3">{{ old('description') }}</textarea>
             </div>
             <div class="mb-3">
                 <label for="stack" class="form-label">Project stack</label>
-                <textarea class="form-control" id="stack" name="stack" rows="3">{{old('stack')}}</textarea>
+                <textarea class="form-control" id="stack" name="stack" rows="3">{{ old('stack') }}</textarea>
             </div>
             <div class="mb-3">
                 <label for="image" class="form-label">Image</label>
                 <input class="form-control" type="file" id="image" name="image">
-              </div>
-              <div class="mb-3">
+            </div>
+            <div class="mb-3">
                 <label for="type_id" class="form-label">Type</label>
                 <select class="form-select" name="type_id" id="type_id">
                     <option value="">Choose type</option>
                     @foreach ($types as $type)
-                        <option value="{{$type->id}}" {{old('type_id') == $type->id ? 'selected' : ''}}>{{$type->name}}</option>
+                        <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>
+                            {{ $type->name }}</option>
                     @endforeach
-                  </select> 
-              </div>  
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-check-label d-block" for="technologies">
+                    Technology
+                </label>
+                @foreach ($technologies as $technology)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="technologies" name="technologies[]" value="{{$technology->id}}" {{ in_array($technology->id, old('technologies', [])) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="technologies">{{$technology->name}}</label>
+                    </div>
+                @endforeach
+            </div>
             <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
         </form>
     </div>
