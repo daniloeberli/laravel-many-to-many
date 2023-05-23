@@ -56,6 +56,11 @@ class ProjectController extends Controller
         }
 
         $new_project->save();
+
+        if(isset($data['technologies'])){
+            $new_project->technologies()->sync($data['technologies']);
+        }
+        
         return to_route('admin.projects.show', $new_project->id);
     }
 
