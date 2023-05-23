@@ -83,7 +83,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('project','types','technologies'));
     }
 
     /**
@@ -98,7 +100,6 @@ class ProjectController extends Controller
         $request->validated();
 
         $data = $request->all();
-        $project->update($data);
         $project->slug = Str::slug($project->title, '-');
 
         if (isset($data['image'])) {
@@ -109,7 +110,15 @@ class ProjectController extends Controller
 
             $project->image = Storage::put('uploads', $data['image']);
         }
-        $project->save();
+
+        // if(isset($data['technologies'])){
+        //     $project->technologies()->sync($data['technologies']);
+        // }
+
+        $technologies = isset($data['technologies']) ? $data['technologies'] : [];
+        $project->technologies()->sync($technologies);
+
+        $project->update($data); 
 
         return to_route('admin.projects.show', $project->id)->with('message', 'Hai modificato con successo il progetto');
     }

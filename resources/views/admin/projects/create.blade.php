@@ -56,6 +56,6 @@
                 @endforeach
             </div>
             <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
-        </form>
+        </form> 
     </div>
 @endsection
