@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Technology;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class TechnologySeeder extends Seeder
@@ -18,9 +19,9 @@ class TechnologySeeder extends Seeder
     {
         $technologies = ['Js','PHP','Haskell','C++','Python','C','C#','Java','SQL'];
 
-        //Schema::disableForeignKeyConstraints();
+        Schema::disableForeignKeyConstraints();
         Technology::truncate();
-        //Schema::enableForeignKeyConstraints();
+        Schema::enableForeignKeyConstraints();
 
         foreach($technologies as $technology){
             
